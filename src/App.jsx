@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 // --- Config ---
 const ADVENT_YEAR = 2025; // target year for unlocking
+const RED_DAYS = new Set([5, 10, 15, 20, 24]);
 
 // --- Time (Brussels) helpers ---
 function nowBrussels() {
@@ -28,13 +29,15 @@ export default function App() {
   const [selected, setSelected] = useState(null);
 
   return (
-    <div className="min-h-screen bg-white text-slate-800">
-      <header className="p-6 flex items-center justify-between max-w-5xl mx-auto">
-        <div className="flex items-center gap-3">
-          <span className="text-3xl">🎄</span>
-          <div>
-            <h1 className="text-2xl font-bold">Calendrier de l'Avent {ADVENT_YEAR}</h1>
-          </div>
+    <div className="min-h-screen bg-gradient-to-b from-white via-emerald-50 to-emerald-100 text-slate-800">
+      <header className="p-8 max-w-5xl mx-auto">
+        <div className="text-center">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
+            🌲 Calendrier de l'Avent {ADVENT_YEAR} 🌲
+          </h1>
+          <p className="mt-3 mx-auto max-w-2xl text-sm sm:text-base text-slate-600 bg-white/70 border rounded-2xl px-4 py-3">
+            {"Comme je te l'avais déjà dit, tu auras un calendrier de l'avent 1 an sur 2. J'espère qu'il te plaîra et je te souhaite un Joyeux Noël mon amour <3 "}
+          </p>
         </div>
       </header>
 
@@ -51,22 +54,30 @@ export default function App() {
       </main>
 
       <footer className="max-w-5xl mx-auto px-6 py-8 text-center text-xs text-slate-500">
-        Fait avec ❤️ — installable comme app (PWA) et fonctionne hors ligne.
+        © Copyright 2025 Guillaume Van Raemdonck, Inc. All rights reserved.
       </footer>
     </div>
   );
 }
 
 function DoorCard({ door, onOpen }) {
-  const open = isDoorOpen(door.id);
+  // Make day 1 available for preview; others follow date
+  const open = door.id === 1 || isDoorOpen(door.id);
+  const isRed = RED_DAYS.has(door.id);
+
+  const base = [
+    "relative aspect-square rounded-2xl p-3 border shadow-sm transition",
+    open ? "hover:shadow-md" : "cursor-not-allowed",
+  ];
+
+  const colorClass = open
+    ? (isRed ? "bg-red-100 border-red-200" : "bg-white border-slate-200")
+    : (isRed ? "bg-red-200 border-red-300" : "bg-slate-100 border-slate-200");
 
   return (
     <button
       onClick={onOpen}
-      className={[
-        "relative aspect-square rounded-2xl p-3 border shadow-sm transition",
-        open ? "bg-white hover:shadow-md" : "bg-slate-100 cursor-not-allowed",
-      ].join(" ")}
+      className={[...base, colorClass].join(" ")}
       disabled={!open}
       title={open ? `Ouvrir le jour ${door.id}` : `Verrouillé jusqu'au ${door.id} décembre`}
       aria-label={open ? `Jour ${door.id} ouvrable` : `Jour ${door.id} verrouillé`}
@@ -75,12 +86,12 @@ function DoorCard({ door, onOpen }) {
         {open ? (
           <>
             <span className="text-4xl" aria-hidden>🎁</span>
-            <span className="mt-2 text-sm text-slate-600">Jour {door.id}</span>
+            <span className="mt-2 text-sm text-slate-700">Jour {door.id}</span>
           </>
         ) : (
           <>
             <span className="text-4xl" aria-hidden>🔒</span>
-            <span className="mt-2 text-sm text-slate-500">{door.id}</span>
+            <span className="mt-2 text-sm text-slate-600">{door.id}</span>
           </>
         )}
       </div>
