@@ -1,10 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
-// --- Config ---
-const ADVENT_YEAR = 2025; // target year for unlocking
+/* ==============================
+   Config
+============================== */
+const ADVENT_YEAR = 2025;
 const RED_DAYS = new Set([5, 10, 15, 20, 24]);
 
-// Provide your Q&A here. Answers are case/accents-insensitive.
+// Answers are case/diacritics-insensitive
 const QUESTIONS = {
   1:  { q: "Quel est le nom du bar où l'on a eu notre premier date?", a: "La Cabane" },
   2:  { q: "Comment s'appellent nos doudous?", a: "Kawaii Ne" },
@@ -32,7 +34,9 @@ const QUESTIONS = {
   24: { q: "Avec qui est-ce que je souhaite finir ma vie?", a: "Elline" },
 };
 
-// --- Helpers ---
+/* ==============================
+   Helpers
+============================== */
 function nowBrussels() {
   const n = new Date();
   const s = n.toLocaleString("en-US", { timeZone: "Europe/Brussels" });
@@ -43,7 +47,7 @@ function isDoorOpenByDate(day, n = nowBrussels()) {
   return n >= unlock;
 }
 function isAvailable(day) {
-  // Keep day 1 available for preview; remove this when you're done testing
+  // Keep day 1 available for preview; remove this later if you want strict dates
   if (day === 1) return true;
   return isDoorOpenByDate(day);
 }
@@ -54,10 +58,12 @@ function normalize(s) {
     .trim()
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+    .replace(/[̀-ͯ]/g, "");
 }
 
-// --- Content (edit payloads upfront if you like) ---
+/* ==============================
+   Content (edit payloads upfront if you want)
+============================== */
 const DEFAULT_DOORS = Array.from({ length: 24 }).map((_, i) => ({
   id: i + 1,
   title: `Jour ${i + 1}`,
@@ -65,12 +71,15 @@ const DEFAULT_DOORS = Array.from({ length: 24 }).map((_, i) => ({
   payload: { text: "Surprise 🎄" },
 }));
 
+/* ==============================
+   App
+============================== */
 export default function App() {
   const [doors] = useState(DEFAULT_DOORS);
   const [selected, setSelected] = useState(null);
   const [quizDay, setQuizDay] = useState(null); // { day, door }
 
-  // Snowfall (lightweight & iPhone-friendly)
+  // Lightweight snowfall (iPhone-friendly)
   useEffect(() => {
     const prefersReduced =
       window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -125,7 +134,7 @@ export default function App() {
             <h1 className="text-[20px] sm:text-2xl font-bold tracking-tight whitespace-nowrap">
               🌲 Calendrier de l'Avent {ADVENT_YEAR} 🌲
             </h1>
-            <div className="mt-3 relative overflow-hidden">
+            <div className="mt-3 relative overflow-visible">
               <SleighBanner text={
                 "Comme je te l'avais déjà dit, tu auras un calendrier de l'avent 1 an sur 2. J'espère qu'il te plaîra et je te souhaite un Joyeux Noël mon amour ❤️"
               }/>
@@ -162,13 +171,14 @@ export default function App() {
         <footer className="max-w-5xl mx-auto px-6 py-8 text-center text-xs text-slate-500">
           © Copyright 2025 Guillaume Van Raemdonck, Inc. All rights reserved.
         </footer>
-
-        <MusicToggle />
       </div>
     </>
   );
 }
 
+/* ==============================
+   Components
+============================== */
 function DoorCard({ door, onOpen }) {
   const open = isAvailable(door.id);
   const isRed = RED_DAYS.has(door.id);
@@ -178,8 +188,8 @@ function DoorCard({ door, onOpen }) {
     open ? "hover:shadow-md" : "cursor-not-allowed",
   ];
   const colorClass = open
-    ? isRed ? "bg-red-100 border-red-200" : "bg-white border-slate-200"
-    : isRed ? "bg-red-200 border-red-300" : "bg-slate-100 border-slate-200";
+    ? (isRed ? "bg-red-100 border-red-200" : "bg-white border-slate-200")
+    : (isRed ? "bg-red-200 border-red-300" : "bg-slate-100 border-slate-200");
 
   return (
     <button
@@ -192,16 +202,12 @@ function DoorCard({ door, onOpen }) {
       <div className="w-full h-full flex flex-col items-center justify-center select-none">
         {open ? (
           <>
-            <span className="text-4xl" aria-hidden>
-              🎁
-            </span>
+            <span className="text-4xl" aria-hidden>🎁</span>
             <span className="mt-2 text-sm text-slate-700">Jour {door.id}</span>
           </>
         ) : (
           <>
-            <span className="text-4xl" aria-hidden>
-              🔒
-            </span>
+            <span className="text-4xl" aria-hidden>🔒</span>
             <span className="mt-2 text-sm text-slate-600">{door.id}</span>
           </>
         )}
@@ -214,7 +220,7 @@ function DoorModal({ door, onClose }) {
   useEffect(() => {
     tinyConfetti();
     playSuccess();
-  }, [door && door.id]);
+  }, [door.id]);
 
   const { type, payload } = door;
 
@@ -226,13 +232,13 @@ function DoorModal({ door, onClose }) {
             <h3 className="text-lg font-semibold">Jour {door.id}</h3>
             <p className="text-xs text-slate-500">{door.title}</p>
           </div>
-          <button className="px-3 py-1 text-sm bg-slate-100 rounded-xl" onClick={onClose}>
-            Fermer
-          </button>
+          <button className="px-3 py-1 text-sm bg-slate-100 rounded-xl" onClick={onClose}>Fermer</button>
         </div>
 
         <div className="p-5">
-          {type === "text" && <p className="text-sm leading-relaxed whitespace-pre-wrap">{payload.text || "(Vide)"}</p>}
+          {type === "text" && (
+            <p className="text-sm leading-relaxed whitespace-pre-wrap">{payload.text || "(Vide)"}</p>
+          )}
           {type === "image" && payload.imageUrl && (
             <img src={payload.imageUrl} alt="Surprise" className="w-full rounded-xl border" />
           )}
@@ -240,12 +246,7 @@ function DoorModal({ door, onClose }) {
             <video src={payload.videoUrl} controls playsInline className="w-full rounded-xl border" />
           )}
           {type === "link" && payload.linkUrl && (
-            <a
-              href={payload.linkUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-900 text-white text-sm"
-            >
+            <a href={payload.linkUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-900 text-white text-sm">
               Ouvrir le lien 🔗
             </a>
           )}
@@ -261,7 +262,7 @@ function DoorModal({ door, onClose }) {
   );
 }
 
-// --- Quiz modal (shake + random error messages) ---
+// Quiz modal (shake + random error messages)
 function QuestionModal({ qa, day, onCancel, onSuccess, onFail }) {
   const [answer, setAnswer] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -319,7 +320,9 @@ function QuestionModal({ qa, day, onCancel, onSuccess, onFail }) {
   );
 }
 
-// --- Tiny effects ---
+/* ==============================
+   Tiny effects + small CSS
+============================== */
 function tinyConfetti() {
   const root = document.body;
   const n = 14;
@@ -346,7 +349,7 @@ function tinyConfetti() {
   }
 }
 
-// Inject small global styles (shake + sleigh)
+// Inject minimal CSS for shake + sleigh animation
 function StyleInjector() {
   return (
     <style>{`
@@ -366,9 +369,9 @@ function StyleInjector() {
 
 function SleighBanner({ text }) {
   return (
-    <div className="relative h-10 sm:h-12 overflow-hidden">
-      <div className="sleigh-fly absolute inset-y-0 right-0 flex items-center gap-3">
-        <span className="text-2xl sm:text-3xl" aria-hidden>🦌🦌🦌🛷</span>
+    <div className="relative h-14 sm:h-16 overflow-visible flex items-center justify-center">
+      <div className="sleigh-fly absolute right-0 flex items-center gap-3">
+        <span className="text-3xl sm:text-4xl leading-none mt-0.5" aria-hidden>🦌</span>
         <div className="bg-white/85 border border-emerald-200 rounded-lg px-3 py-1 shadow-sm text-emerald-700 font-semibold whitespace-nowrap">
           {text}
         </div>
@@ -377,24 +380,33 @@ function SleighBanner({ text }) {
   );
 }
 
-// Background music (requires user gesture to start on iOS)
-// Put an MP3 URL if you want the toggle visible; leave empty to hide.
-const MUSIC_URL = ""; // e.g., "https://yourdomain.com/christmas.mp3"
-function MusicToggle() {
-  const [enabled, setEnabled] = useState(false);
-  const audioRef = useRef(null);
-  useEffect(() => {
-    const a = audioRef.current;
-    if (!a) return;
-    if (enabled) { a.play().catch(() => {}); } else { a.pause(); }
-  }, [enabled]);
-  if (!MUSIC_URL) return null;
-  return (
-    <div className="fixed bottom-4 right-4 z-50">
-      <button onClick={() => setEnabled((e) => !e)} className="px-3 py-2 rounded-xl shadow-sm border bg-white/90">
-        {enabled ? "⏸️ Musique" : "▶️ Musique"}
-      </button>
-      <audio ref={audioRef} src={MUSIC_URL} loop preload="none" />
-    </div>
-  );
+/* ==============================
+   Sounds (no assets; WebAudio)
+============================== */
+function playTone(opts) {
+  const cfg = Object.assign({ freq: 880, time: 0.2, type: "sine", volume: 0.08 }, opts || {});
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    const ctx = new Ctx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = cfg.type;
+    osc.frequency.value = cfg.freq;
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    gain.gain.value = cfg.volume;
+    osc.start();
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + cfg.time);
+    osc.stop(ctx.currentTime + cfg.time);
+  } catch (e) {
+    // ignore audio errors (Safari permissions etc.)
+  }
+}
+function playSuccess() {
+  playTone({ freq: 880, time: 0.12 });
+  setTimeout(() => playTone({ freq: 1320, time: 0.12 }), 130);
+}
+function playError() {
+  playTone({ freq: 220, time: 0.18, type: "square" });
+  setTimeout(() => playTone({ freq: 180, time: 0.18, type: "square" }), 160);
 }
