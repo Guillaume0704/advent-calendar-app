@@ -64,12 +64,33 @@ function normalize(s) {
 /* ==============================
    Content (edit payloads upfront if you want)
 ============================== */
-const DEFAULT_DOORS = Array.from({ length: 24 }).map((_, i) => ({
-  id: i + 1,
-  title: `Jour ${i + 1}`,
-  type: "text",
-  payload: { text: "Surprise 🎄" },
-}));
+const DEFAULT_DOORS = [
+  { id: 1, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
+  { id: 2, title: "Photo souvenir", subtitle: "Souvenir de nous deux", type: "image", payload: { imageUrl: "/images/day02.jpg" } },
+  { id: 3, title: "Vidéo surprise 🎥", subtitle: "Petit message vidéo", type: "video", payload: { videoUrl: "/videos/day03.mp4" } },
+  { id: 4, title: "Lien spécial ✨", subtitle: "Un site à découvrir", type: "link", payload: { linkUrl: "https://example.com/jour-4" } },
+  { id: 5, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
+  { id: 6, title: "Photo souvenir", subtitle: "Souvenir de nous deux", type: "image", payload: { imageUrl: "/images/day02.jpg" } },
+  { id: 7, title: "Vidéo surprise 🎥", subtitle: "Petit message vidéo", type: "video", payload: { videoUrl: "/videos/day03.mp4" } },
+  { id: 8, title: "Lien spécial ✨", subtitle: "Un site à découvrir", type: "link", payload: { linkUrl: "https://example.com/jour-4" } },
+  { id: 9, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
+  { id: 10, title: "Photo souvenir", subtitle: "Souvenir de nous deux", type: "image", payload: { imageUrl: "/images/day02.jpg" } },
+  { id: 11, title: "Vidéo surprise 🎥", subtitle: "Petit message vidéo", type: "video", payload: { videoUrl: "/videos/day03.mp4" } },
+  { id: 12, title: "Lien spécial ✨", subtitle: "Un site à découvrir", type: "link", payload: { linkUrl: "https://example.com/jour-4" } },
+  { id: 13, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
+  { id: 14, title: "Photo souvenir", subtitle: "Souvenir de nous deux", type: "image", payload: { imageUrl: "/images/day02.jpg" } },
+  { id: 15, title: "Vidéo surprise 🎥", subtitle: "Petit message vidéo", type: "video", payload: { videoUrl: "/videos/day03.mp4" } },
+  { id: 16, title: "Lien spécial ✨", subtitle: "Un site à découvrir", type: "link", payload: { linkUrl: "https://example.com/jour-4" } },
+  { id: 17, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
+  { id: 18, title: "Photo souvenir", subtitle: "Souvenir de nous deux", type: "image", payload: { imageUrl: "/images/day02.jpg" } },
+  { id: 19, title: "Vidéo surprise 🎥", subtitle: "Petit message vidéo", type: "video", payload: { videoUrl: "/videos/day03.mp4" } },
+  { id: 20, title: "Lien spécial ✨", subtitle: "Un site à découvrir", type: "link", payload: { linkUrl: "https://example.com/jour-4" } },
+  { id: 21, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
+  { id: 22, title: "Photo souvenir", subtitle: "Souvenir de nous deux", type: "image", payload: { imageUrl: "/images/day02.jpg" } },
+  { id: 23, title: "Vidéo surprise 🎥", subtitle: "Petit message vidéo", type: "video", payload: { videoUrl: "/videos/day03.mp4" } },
+  { id: 24, title: "Lien spécial ✨", subtitle: "Un site à découvrir", type: "link", payload: { linkUrl: "https://example.com/jour-4" } }
+  // ... continue all 24 boxes ...
+  ];
 
 /* ==============================
    App
@@ -229,8 +250,8 @@ function DoorModal({ door, onClose }) {
       <div className="max-w-lg w-full rounded-2xl bg-white shadow-xl border" onClick={(e) => e.stopPropagation()}>
         <div className="p-4 border-b flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold">Jour {door.id}</h3>
-            <p className="text-xs text-slate-500">{door.title}</p>
+          <h3 className="text-lg font-semibold">{door.title || `Jour ${door.id}`}</h3>
+          {door.subtitle && <p className="text-xs text-slate-500">{door.subtitle}</p>}
           </div>
           <button className="px-3 py-1 text-sm bg-slate-100 rounded-xl" onClick={onClose}>Fermer</button>
         </div>
