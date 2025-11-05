@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 ============================== */
 const ADVENT_YEAR = 2025;
 const RED_DAYS = new Set([5, 10, 15, 20, 24]);
+const TEST_MODE = true;
 
 // Answers are case/diacritics-insensitive
 const QUESTIONS = {
@@ -48,7 +49,7 @@ function isDoorOpenByDate(day, n = nowBrussels()) {
 }
 function isAvailable(day) {
   // Keep day 1 available for preview; remove this later if you want strict dates
-  if (day === 1) return true;
+  if (TEST_MODE) return true;
   return isDoorOpenByDate(day);
 }
 // diacritics-insensitive, case-insensitive comparison
@@ -65,30 +66,30 @@ function normalize(s) {
    Content (edit payloads upfront if you want)
 ============================== */
 const DEFAULT_DOORS = [
-  { id: 1, title: "Jour 1 #Louane", subtitle: "Joyeux 1er décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_1.jpg" } },
-  { id: 2, title: "culotte", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 3, title: "pince", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 4, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 5, title: "écharpe", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 6, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 7, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 8, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 9, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 10, title: "ensemble sous-vêtements", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 11, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 12, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 13, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 14, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 15, title: "housse d'ordi", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 16, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 17, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 18, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 19, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 20, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 21, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 22, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 23, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
-  { id: 24, title: "Petit mot 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "text", payload: { text: "Joyeux 1er décembre ! 💚" } },
+  { id: 1, title: "Jour 1 #Louane 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_1.jpg" } },
+  { id: 2, title: "Jour 2 💌", subtitle: "Joyeux 2 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_2.avif" } },
+  { id: 3, title: "Jour 3 💌", subtitle: "Joyeux 3 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_3.jpg" } },
+  { id: 4, title: "Jour 4 💌", subtitle: "Joyeux 4 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_4.jpg" } },
+  { id: 5, title: "Jour 5 💌", subtitle: "Joyeux 5 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_5.webp" } },
+  { id: 6, title: "Jour 6 💌", subtitle: "Joyeux 6 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_6.jpg" } },
+  { id: 7, title: "Jour 7 #CommeLesChaussettes 💌", subtitle: "Joyeux 7 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_7.webp" } },
+  { id: 8, title: "Jour 8 💌", subtitle: "Joyeux 8 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_8.avif" } },
+  { id: 9, title: "Jour 9 💌", subtitle: "Joyeux 9 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_9.jpg" } },
+  { id: 10, title: "Jour 10 💌", subtitle: "Joyeux 10 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_10.avif" } },
+  { id: 11, title: "Jour 11 💌", subtitle: "Joyeux 11 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_11.jpg" } },
+  { id: 12, title: "Jour 12 💌", subtitle: "Joyeux 12 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_12.png" } },
+  { id: 13, title: "Jour 13 💌", subtitle: "Joyeux 13 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_13.jpg" } },
+  { id: 14, title: "Jour 14 💌", subtitle: "Joyeux 14 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_14.webp" } },
+  { id: 15, title: "Jour 15 💌", subtitle: "Joyeux 15 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_15.avif" } },
+  { id: 16, title: "Jour 16 💌", subtitle: "Joyeux 16 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_16.jpg" } },
+  { id: 17, title: "Jour 17 💌", subtitle: "Joyeux 17 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_17.jpg" } },
+  { id: 18, title: "Jour 18 💌", subtitle: "Joyeux 18 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_18.jpeg" } },
+  { id: 19, title: "Jour 19 💌", subtitle: "Joyeux 19 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_19.jpg" } },
+  { id: 20, title: "Jour 20 💌", subtitle: "Joyeux 20 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_20.webp" } },
+  { id: 21, title: "Jour 21 💌", subtitle: "Joyeux 21 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_21.jpg" } },
+  { id: 22, title: "Jour 22 💌", subtitle: "Joyeux 22 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_22.jpg" } },
+  { id: 23, title: "Jour 23 💌", subtitle: "Joyeux 23 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_23.jpg" } },
+  { id: 24, title: "Jour 24 💌", subtitle: "Joyeux 24 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_24.jpg" } },
   ];
 
 /* ==============================
