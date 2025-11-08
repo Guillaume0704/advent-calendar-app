@@ -67,7 +67,7 @@ function normalize(s) {
 ============================== */
 const DEFAULT_DOORS = [
   { id: 1, title: "Jour 1 #Louane 💌", subtitle: "Joyeux 1er décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_1.jpg" } },
-  { id: 2, title: "Jour 2 #KawaiiNeeee 💌", subtitle: "Joyeux 2 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_2.jpg" } },
+  { id: 2, title: "Jour 2 #KawaiiNeeee 💌", subtitle: "Joyeux 2 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_2.avif" } },
   { id: 3, title: "Jour 3 #TimeToBeReal 💌", subtitle: "Joyeux 3 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_3.jpg" } },
   { id: 4, title: "Jour 4 #OnRetourneQuand 💌", subtitle: "Joyeux 4 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_4.jpg" } },
   { id: 5, title: "Jour 5 #SansBlague 💌", subtitle: "Joyeux 5 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_5.webp" } },
