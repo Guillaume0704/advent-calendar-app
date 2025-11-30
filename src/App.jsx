@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 ============================== */
 const ADVENT_YEAR = 2025;
 const RED_DAYS = new Set([1, 4, 5, 8, 9, 12, 13, 16, 17, 20, 21, 24]);
-const TEST_MODE = false;
+const TEST_MODE = true;
 
 // Answers are case/diacritics-insensitive
 const QUESTIONS = {
@@ -21,7 +21,7 @@ const QUESTIONS = {
   10: { q: "Quel serait ton totem?", a: "Tanuki" },
   11: { q: "Quel personnage animé to représente?", a: "Ponyo" },
   12: { q: "Qui se gare le mieux?", a: "Guillaume" },
-  13: { q: "Quelle est la marque de ta bière préférée?", a: "St Hubertus" },
+  13: { q: "Qu'est-ce que j'ai mangé et pas toi?", a: "St Hubertus" },
   14: { q: "Qui est la plus belle blonde que je connaisse?", a: "Elline" },
   15: { q: "Qui a la plus belle manette PS5?", a: "Guillaume" },
   16: { q: "Quelle sera la race de notre futur chat?", a: "British Short Hair" },
