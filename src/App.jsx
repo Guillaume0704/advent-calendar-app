@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
    Config
 ============================== */
 const ADVENT_YEAR = 2025;
-const RED_DAYS = new Set([1, 4, 5, 8, 9, 12, 13, 16, 17, 20, 21, 24]);
+const RED_DAYS = new Set([1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 16, 17, 18, 21, 24]);
 const TEST_MODE = false;
 
 // Answers are case/diacritics-insensitive
@@ -79,17 +79,17 @@ const DEFAULT_DOORS = [
   { id: 11, title: "Jour 11 #MonPonyoPréféré 💌", subtitle: "Joyeux 11 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_11.jpeg" } },
   { id: 12, title: "Jour 12 #NoKidding 💌", subtitle: "Joyeux 12 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_12.jpg" } },
   { id: 13, title: "Jour 13 #J'auraisPuMettreEvian 💌", subtitle: "Joyeux 13 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_13.jpg" } },
-  { id: 14, title: "Jour 14 #EtLaPlusIntelligenteAussi💌", subtitle: "Joyeux 14 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_14.webp" } },
+  { id: 14, title: "Jour 14 #EtLaPlusIntelligenteAussi 💌", subtitle: "Joyeux 14 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_14.webp" } },
   { id: 15, title: "Jour 15 #EtLePlusBeauSabreDeSamurai 💌", subtitle: "Joyeux 15 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_15.webp" } },
   { id: 16, title: "Jour 16 #LeChaaaaaat 💌", subtitle: "Joyeux 16 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_16.jpg" } },
   { id: 17, title: "Jour 17 #Bouuuuuuh 💌", subtitle: "Joyeux 17 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_17.jpeg" } },
-  { id: 18, title: "Jour 18 #TroisCaMarchaitAussi💌", subtitle: "Joyeux 18 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_18.JPG" } },
+  { id: 18, title: "Jour 18 #TroisCaMarchaitAussi 💌", subtitle: "Joyeux 18 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_18.JPG" } },
   { id: 19, title: "Jour 19 #BleuIntense 💌", subtitle: "Joyeux 19 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_19.jpg" } },
-  { id: 20, title: "Jour 20 #DansMaTêteOnAGagné💌", subtitle: "Joyeux 20 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_20.JPG" } },
-  { id: 21, title: "Jour 21 #EtLaLoutreEntreSesJambes💌", subtitle: "Joyeux 21 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_21.webp" } },
+  { id: 20, title: "Jour 20 #DansMaTêteOnAGagné 💌", subtitle: "Joyeux 20 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_20.JPG" } },
+  { id: 21, title: "Jour 21 #EtLaLoutreEntreSesJambes 💌", subtitle: "Joyeux 21 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_21.webp" } },
   { id: 22, title: "Jour 22 #Seum 💌", subtitle: "Joyeux 22 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_22.jpg" } },
   { id: 23, title: "Jour 23 #EtMeMarierEtAvoirDesEnfants 💌", subtitle: "Joyeux 23 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_23.jpg" } },
-  { id: 24, title: "Jour 24 #TousLesCheminsMènentARome💌", subtitle: "Joyeux 24 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_24.jpg" } },
+  { id: 24, title: "Jour 24 #TousLesCheminsMènentARome 💌", subtitle: "Joyeux 24 décembre ! 💚", type: "image", payload: { imageUrl: "/images/day_24.jpg" } },
   ];
 
 /* ==============================
@@ -294,7 +294,7 @@ function QuestionModal({ qa, day, onCancel, onSuccess, onFail }) {
     if (inputRef.current) inputRef.current.focus();
   }, []);
 
-  const messages = useMemo(() => ["nope", "peut mieux faire", "nine", "iie", "bouhhhh"], []);
+  const messages = useMemo(() => ["nope", "peut mieux faire", "nine", "iie", "bouhhhh", "la looose", "cheh"], []);
   const pickMsg = () => messages[Math.floor(Math.random() * messages.length)];
 
   const check = () => {
