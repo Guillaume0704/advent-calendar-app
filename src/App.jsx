@@ -149,7 +149,7 @@ export default function App() {
   return (
     <>
       <StyleInjector />
-      <div className="min-h-screen bg-gradient-to-b from-white via-emerald-50 to-emerald-100 text-slate-800">
+      <div className="min-h-screen bg-gradient-to-b from-white via-emerald-50 to-emerald-100 text-slate-800 overflow-x-hidden">
         <header className="p-8 max-w-5xl mx-auto">
           <div className="text-center">
             <h1 className="text-[20px] sm:text-2xl font-bold tracking-tight whitespace-nowrap">
