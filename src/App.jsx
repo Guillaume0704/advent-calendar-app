@@ -157,7 +157,7 @@ export default function App() {
             </h1>
             <div className="mt-3 relative overflow-visible">
               <SleighBanner text={
-                "Comme je te l'avais déjà dit, tu auras un calendrier de l'avent 1 an sur 2. J'espère qu'il te plaîra et je te souhaite un Joyeux Noël mon amour ❤️"
+                "Comme promis, un calendrier de l'avent 1 an sur 2. J'espère qu'il te plaîra et je te souhaite un Joyeux Noël mon amour. Je t'aime ❤️"
               }/>
             </div>
           </div>
