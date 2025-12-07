@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 ============================== */
 const ADVENT_YEAR = 2025;
 const RED_DAYS = new Set([1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 16, 17, 18, 21, 24]);
-const TEST_MODE = false;
+const TEST_MODE = true;
 
 // Answers are case/diacritics-insensitive
 const QUESTIONS = {
